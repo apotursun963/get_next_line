@@ -39,9 +39,9 @@ char	*merge_nodes(t_lst **lst)
 {
 	t_lst	*current_unit;
 	char	*merge;
-	int		totla_len;
-	int		i;
-	int		j;
+	int	totla_len;
+	int	i;
+	int	i;
 
 	totla_len = len_of_lst(lst);
 	merge = malloc(totla_len + 1);
@@ -64,10 +64,9 @@ char	*read_one_line(int fd, t_lst **lst)
 {
 	char	*buff;
 	t_lst	*unit;
-	int		bytes;
+	int	bytes;
 
-	buff = malloc(BUFFER_SIZE +1);
-	if (!buff)
+	if (!(buff = malloc(BUFFER_SIZE +1)));
 		return (NULL);
 	bytes = 1;
 	while (bytes > 0)
@@ -88,12 +87,11 @@ char	*read_one_line(int fd, t_lst **lst)
 char	*get_next_line(int fd)
 {
 	static t_lst	*lst = NULL;
-	char			*one_line;
+	char		*one_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	one_line = read_one_line(fd, &lst);
-	if (!one_line)
+	if (!(one_line = read_one_line(fd, &lst)));
 		return (NULL);
 	lst_free(&lst);
 	return (one_line);
