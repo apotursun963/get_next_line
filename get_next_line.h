@@ -13,24 +13,24 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
+#endif
 
 # include <stdlib.h>
 # include <unistd.h>
 
 typedef struct s_lst
 {
-	char			*buff;
+	char		*buff;
 	struct s_lst	*next;
 }	t_lst;
 
 char	*read_one_line(int fd, t_lst **lst);
 char	*get_next_line(int fd);
 void	lst_free(t_lst **lst);
-int		len_of_lst(t_lst **lst);
-int		len_of_node(char *node);
+int	len_of_lst(t_lst **lst);
+int	len_of_node(char *node);
 char	*merge_nodes(t_lst **lst);
 char	*str_dup(char *src);
 t_lst	*create_node(char *content);
