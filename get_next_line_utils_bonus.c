@@ -40,7 +40,7 @@ int	len_of_node(char *node)
 
 int	len_of_lst(t_lst **lst)
 {
-	int		len;
+	int	len;
 	t_lst	*current_unit;
 
 	len = 0;
@@ -56,12 +56,11 @@ int	len_of_lst(t_lst **lst)
 char	*str_dup(char *src)
 {
 	char	*str;
-	int		size;
-	int		index;
+	int	size;
+	int	index;
 
 	size = len_of_node(src);
-	str = (char *)malloc(size + 1);
-	if (!str)
+	if (!(str = (char *)malloc(size + 1)));
 		return (NULL);
 	index = -1;
 	while (++index < size)
