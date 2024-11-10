@@ -28,16 +28,6 @@ void	lst_free(t_lst **lst)
 	*lst = NULL;
 }
 
-int	len_of_node(char *node)
-{
-	int	len;
-
-	len = 0;
-	while (*node++)
-		len++;
-	return (len);
-}
-
 int	len_of_lst(t_lst **lst)
 {
 	int	len;
@@ -47,25 +37,21 @@ int	len_of_lst(t_lst **lst)
 	current_unit = *lst;
 	while (current_unit)
 	{
-		len += len_of_node(current_unit->buff);
+		len++;
 		current_unit = current_unit->next;
 	}
 	return (len);
 }
 
-char	*str_dup(char *src)
+char	*str_dup(char *content)
 {
 	char	*str;
-	int	size;
-	int	index;
 
-	size = len_of_node(src);
-	if (!(str = (char *)malloc(size + 1)));
+	str = (char *)malloc(2);
+	if (!str)
 		return (NULL);
-	index = -1;
-	while (++index < size)
-		str[index] = src[index];
-	str[index] = '\0';
+	str[0] = content[0];
+	str[1] = '\0';
 	return (str);
 }
 
