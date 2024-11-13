@@ -70,7 +70,7 @@ char	*read_file(int fd, char *leftover)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes == -1)
-			return (free(buffer), NULL);
+			return (free(buffer), free(leftover), leftover = NULL, NULL);
 		buffer[bytes] = '\0';
 		leftover = merge_str(leftover, buffer);
 	}
@@ -83,8 +83,8 @@ char	*get_next_line(int fd)
 	char		*one_line;
 	static char	*leftover[1000];
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (free(leftover[fd]), leftover[fd] = NULL, NULL);
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	if (!(leftover[fd] = read_file(fd, leftover[fd])));
 		return (NULL);
 	one_line = pull_line(leftover[fd]);
