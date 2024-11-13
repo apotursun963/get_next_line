@@ -14,8 +14,8 @@
 
 char	*pull_left(char *leftover)
 {
-	int		idx;
-	int		jdx;
+	int	idx;
+	int	jdx;
 	char	*res;
 
 	idx = 0;
@@ -37,7 +37,7 @@ char	*pull_left(char *leftover)
 
 char	*pull_line(char *leftover)
 {
-	int		idx;
+	int	idx;
 	char	*res;
 
 	idx = 0;
@@ -63,10 +63,9 @@ char	*pull_line(char *leftover)
 char	*read_file(int fd, char *leftover)
 {
 	char	*buffer;
-	int		bytes;
+	int	bytes;
 
-	buffer = malloc(BUFFER_SIZE +1);
-	if (!buffer)
+	if (!(buffer = malloc(BUFFER_SIZE +1)))
 		return (NULL);
 	bytes = 1;
 	while (!search_new_line(leftover) && bytes != 0)
@@ -88,8 +87,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (free(leftover), leftover = NULL, NULL);
-	leftover = read_file(fd, leftover);
-	if (!leftover)
+	if (!(leftover = read_file(fd, leftover)))
 		return (NULL);
 	one_line = pull_line(leftover);
 	leftover = pull_left(leftover);
