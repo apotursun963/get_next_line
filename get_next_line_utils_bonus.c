@@ -37,8 +37,8 @@ char	*search_new_line(char *str)
 
 char	*merge_str(char *leftover, char *buffer)
 {
-	int		index;
-	int		jndex;
+	int	index;
+	int	jndex;
 	char	*assemble;
 
 	if (!leftover)
@@ -48,8 +48,7 @@ char	*merge_str(char *leftover, char *buffer)
 	}
 	if (!buffer)
 		return (NULL);
-	assemble = malloc(len_of_str(leftover) + len_of_str(buffer) + 1);
-	if (!assemble)
+	if (!(assemble = malloc(len_of_str(leftover) + len_of_str(buffer) + 1)));
 		return (NULL);
 	index = -1;
 	jndex = 0;
@@ -57,7 +56,7 @@ char	*merge_str(char *leftover, char *buffer)
 		assemble[index] = leftover[index];
 	while (buffer[jndex])
 		assemble[index++] = buffer[jndex++];
-	assemble[len_of_str(leftover) + len_of_str(buffer)] = '\0';
+	assemble[index] = '\0';
 	free(leftover);
 	return (assemble);
 }
