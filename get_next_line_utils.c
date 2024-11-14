@@ -37,9 +37,9 @@ char	*search_new_line(char *str)
 
 char	*merge_str(char *leftover, char *buffer)
 {
-	int	index;
-	int	jndex;
 	char	*assemble;
+	char	*assemble_begin_adrs;
+	char	*leftover_begin_adrs;
 
 	if (!leftover)
 	{
@@ -48,15 +48,15 @@ char	*merge_str(char *leftover, char *buffer)
 	}
 	if (!buffer)
 		return (NULL);
-	if (!(assemble = malloc(len_of_str(leftover) + len_of_str(buffer) + 1)));
+	if (!(assemble = malloc(ft_len_of_str(leftover) + ft_len_of_str(buffer) + 1)));
 		return (NULL);
-	index = -1;
-	jndex = 0;
-	while (leftover[++index])
-		assemble[index] = leftover[index];
-	while (buffer[jndex])
-		assemble[index++] = buffer[jndex++];
-	assemble[index] = '\0';
-	free(leftover);
-	return (assemble);
+	leftover_begin_adrs = leftover;
+	assemble_begin_adrs = assemble;
+	while (*leftover)
+		*assemble++ = *leftover++;
+	while (*buffer)
+		*assemble++ = *buffer++;
+	*assemble = '\0';
+	free(leftover_begin_adrs);
+	return (assemble_begin_adrs);
 }
