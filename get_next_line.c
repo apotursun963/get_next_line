@@ -14,31 +14,31 @@
 
 char	*pull_left(char *leftover)
 {
-	int	idx;
-	int	jdx;
 	char	*res;
+	char	*res_begin_adrs;
+	char	*leftover_begin_adrs;
 
-	idx = 0;
-	while (leftover[idx] != '\0' && leftover[idx] != '\n')
-		idx++;
-	if (!leftover[idx])
-		return (free(leftover), NULL);
-	res = (char *)malloc(len_of_str(&leftover[idx]) + 1);
+	leftover_begin_adrs = leftover;
+	while (*leftover != '\0' && *leftover != '\n')
+		leftover++;
+	if (!*leftover)
+		return (free(leftover_begin_adrs), NULL);
+	res = (char *)malloc(ft_len_of_str(leftover) + 1);
 	if (!res)
 		return (NULL);
-	idx++;
-	jdx = 0;
-	while (leftover[idx])
-		res[jdx++] = leftover[idx++];
-	res[jdx] = '\0';
-	free(leftover);
-	return (res);
+	res_begin_adrs = res;
+	while (*leftover != '\0')
+		*res++ = *++leftover;
+	*res = '\0';
+	free(leftover_begin_adrs);
+	return (res_begin_adrs);
 }
 
 char	*pull_line(char *leftover)
 {
-	int	idx;
+	int		idx;
 	char	*res;
+	char	*res_begin_adrs;
 
 	idx = 0;
 	if (!leftover[idx])
@@ -48,33 +48,31 @@ char	*pull_line(char *leftover)
 	res = (char *)malloc(idx + 2);
 	if (!res)
 		return (NULL);
-	idx = 0;
-	while (leftover[idx] != '\0' && leftover[idx] != '\n')
-	{
-		res[idx] = leftover[idx];
-		idx++;
-	}
-	if (leftover[idx] == '\n')
-		res[idx++] = '\n';
-	res[idx] = '\0';
-	return (res);
+	res_begin_adrs = res;
+	while (*leftover != '\0' && *leftover != '\n')
+		*res++ = *leftover++;
+	if (*leftover == '\n')
+		*res++ = '\n';
+	*res = '\0';
+	return (res_begin_adrs);
 }
 
 char	*read_file(int fd, char *leftover)
 {
 	char	*buffer;
-	int	bytes;
+	int		bytes;
 
-	if (!(buffer = malloc(BUFFER_SIZE +1)))
+	buffer = malloc(BUFFER_SIZE +1);
+	if (!buffer)
 		return (NULL);
 	bytes = 1;
-	while (!search_new_line(leftover) && bytes != 0)
+	while (ft_search_new_line(leftover) == NULL && bytes != 0)
 	{
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes == -1)
 			return (free(buffer), free(leftover), leftover = NULL, NULL);
 		buffer[bytes] = '\0';
-		leftover = merge_str(leftover, buffer);
+		leftover = ft_merge_str(leftover, buffer);
 	}
 	free(buffer);
 	return (leftover);
@@ -87,9 +85,10 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!(leftover = read_file(fd, leftover)))
+	leftover = ft_read_file(fd, leftover);
+	if (!leftover)
 		return (NULL);
-	one_line = pull_line(leftover);
-	leftover = pull_left(leftover);
+	one_line = ft_pull_line(leftover);
+	leftover = ft_pull_left(leftover);
 	return (one_line);
 }
