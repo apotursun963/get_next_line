@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <fcntl.h>
-#include "../get_next_line.h"
+#include "../src/get_next_line.h"
 
                         // "Reading line by line from file"
 int main(void)
